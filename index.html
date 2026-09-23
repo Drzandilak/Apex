@@ -26,6 +26,7 @@
       display: block;
     }
 
+    /* 🎬 لودینگ */
     #loading {
       position: fixed;
       inset: 0;
@@ -76,6 +77,7 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
+    /* ❌ خطا */
     #errorBox {
       display: none;
       position: fixed;
@@ -122,27 +124,33 @@
 </head>
 <body>
 
+  <!-- 🎬 لودینگ -->
   <div id="loading">
     <div class="spinner"></div>
     <div class="logo-text">APEX</div>
     <div class="subtitle">مشاوره کنکور دکتر زندی</div>
   </div>
 
+  <!-- ❌ خطا -->
   <div id="errorBox">
     <h2>⚠️ خطا در بارگذاری</h2>
     <p>لطفاً اتصال اینترنت خود را بررسی کنید و صفحه را دوباره بارگذاری کنید.</p>
     <button onclick="location.reload()">🔄 تلاش مجدد</button>
   </div>
 
+  <!-- 📱 iframe اپ -->
   <iframe
     id="appFrame"
-    src="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"
+    src="https://script.google.com/macros/s/AKfycbyM9bAOEQkIkdJfmsnIwhsf-NZ8N1ZLyDPXcvVEKJBEdMRbXcysd8Tsnlzy48RKz3DU/exec"
     allow="clipboard-write; clipboard-read"
     sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-top-navigation-by-user-activation"
     onload="onIframeLoad()">
   </iframe>
 
   <script>
+    // ==========================================
+    // 🎬 مدیریت لودینگ
+    // ==========================================
     var loadTimeout = null;
 
     function onIframeLoad() {
@@ -158,24 +166,28 @@
       }
     }
 
+    // ⏰ اگه بعد از ۲۰ ثانیه لود نشد → خطا
     loadTimeout = setTimeout(function() {
       var loading = document.getElementById('loading');
       if (loading && !loading.classList.contains('hidden')) {
         document.getElementById('errorBox').classList.add('show');
       }
-    }, 15000);
+    }, 20000);
 
+    // ==========================================
+    // 🔗 پشتیبانی از ?page= در URL
+    // ==========================================
     (function() {
       var params = new URLSearchParams(window.location.search);
       var page = params.get('page');
 
       if (page) {
         var iframe = document.getElementById('appFrame');
-        var baseUrl = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+        var baseUrl = 'https://script.google.com/macros/s/AKfycbyM9bAOEQkIkdJfmsnIwhsf-NZ8N1ZLyDPXcvVEKJBEdMRbXcysd8Tsnlzy48RKz3DU/exec';
         iframe.src = baseUrl + '?page=' + page;
       }
     })();
   </script>
 
 </body>
-  </html>
+</html>
