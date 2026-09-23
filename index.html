@@ -1,1 +1,181 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX — مشاوره کنکور دکتر زندی</title>
 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0f0a2e;
+    }
+
+    #appFrame {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      display: block;
+    }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f0a2e 0%, #1e1b4b 50%, #312e81 100%);
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+      font-family: Tahoma, Arial, sans-serif;
+      color: white;
+    }
+
+    #loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(251, 191, 36, 0.2);
+      border-top-color: #fbbf24;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #loading .logo-text {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #fbbf24, #fcd34d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      font-family: Arial, sans-serif;
+    }
+
+    #loading .subtitle {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    #errorBox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0f0a2e;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      font-family: Tahoma, Arial, sans-serif;
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #errorBox.show {
+      display: flex;
+    }
+
+    #errorBox h2 {
+      color: #fbbf24;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    #errorBox p {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    #errorBox button {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0f0a2e;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="logo-text">APEX</div>
+    <div class="subtitle">مشاوره کنکور دکتر زندی</div>
+  </div>
+
+  <div id="errorBox">
+    <h2>⚠️ خطا در بارگذاری</h2>
+    <p>لطفاً اتصال اینترنت خود را بررسی کنید و صفحه را دوباره بارگذاری کنید.</p>
+    <button onclick="location.reload()">🔄 تلاش مجدد</button>
+  </div>
+
+  <iframe
+    id="appFrame"
+    src="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"
+    allow="clipboard-write; clipboard-read"
+    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-top-navigation-by-user-activation"
+    onload="onIframeLoad()">
+  </iframe>
+
+  <script>
+    var loadTimeout = null;
+
+    function onIframeLoad() {
+      var loading = document.getElementById('loading');
+      if (loading) {
+        setTimeout(function() {
+          loading.classList.add('hidden');
+        }, 300);
+      }
+      if (loadTimeout) {
+        clearTimeout(loadTimeout);
+        loadTimeout = null;
+      }
+    }
+
+    loadTimeout = setTimeout(function() {
+      var loading = document.getElementById('loading');
+      if (loading && !loading.classList.contains('hidden')) {
+        document.getElementById('errorBox').classList.add('show');
+      }
+    }, 15000);
+
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var page = params.get('page');
+
+      if (page) {
+        var iframe = document.getElementById('appFrame');
+        var baseUrl = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+        iframe.src = baseUrl + '?page=' + page;
+      }
+    })();
+  </script>
+
+</body>
+  </html>
