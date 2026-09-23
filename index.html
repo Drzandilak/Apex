@@ -141,7 +141,7 @@
   <!-- 📱 iframe اپ -->
   <iframe
     id="appFrame"
-    src="https://script.google.com/macros/s/AKfycbyM9bAOEQkIkdJfmsnIwhsf-NZ8N1ZLyDPXcvVEKJBEdMRbXcysd8Tsnlzy48RKz3DU/exec"
+    src="https://script.google.com/macros/s/AKfycbxLD6vpvJ1bVFlRoeOTTI5DrXCs6kiz35I-cjmO8sv0RJXXYznKFxa45af2XH-BBrM/exec"
     allow="clipboard-write; clipboard-read"
     sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-top-navigation-by-user-activation"
     onload="onIframeLoad()">
@@ -166,7 +166,7 @@
       }
     }
 
-    // ⏰ اگه بعد از ۲۰ ثانیه لود نشد → خطا
+// ⏰ اگه بعد از ۲۰ ثانیه لود نشد → خطا
     loadTimeout = setTimeout(function() {
       var loading = document.getElementById('loading');
       if (loading && !loading.classList.contains('hidden')) {
@@ -183,7 +183,7 @@
 
       if (page) {
         var iframe = document.getElementById('appFrame');
-        var baseUrl = 'https://script.google.com/macros/s/AKfycbyM9bAOEQkIkdJfmsnIwhsf-NZ8N1ZLyDPXcvVEKJBEdMRbXcysd8Tsnlzy48RKz3DU/exec';
+        var baseUrl = 'https://script.google.com/macros/s/AKfycbxLD6vpvJ1bVFlRoeOTTI5DrXCs6kiz35I-cjmO8sv0RJXXYznKFxa45af2XH-BBrM/exec';
         iframe.src = baseUrl + '?page=' + page;
       }
     })();
